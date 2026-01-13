@@ -15,7 +15,7 @@ DELETE /orders/{id}/items/{itemId}
 - - Only one implementation type.
 - - Not multiple providers.
 - - Tests are repository mocked (not from service).
-- If I used interfaces
+- If I use interfaces
 - - More files.
 - - More complexity.
 - - Worst navigation.
@@ -60,6 +60,7 @@ EmailSender
 - **Docker & Docker Compose**
 - **JUnit 5 & Mockito**
 - **Maven**
+- **FlyWay**
 
 ## Prerequisites
 
@@ -132,6 +133,8 @@ ecommerce-api/
 │   │   └── resources/
 │   │       ├── static/
 │   │       │   └── index.html
+│   │       ├── db/migration
+│   │       │   └── V1__initial_schema.sql
 │   │       ├── application.properties
 │   │       ├── application-dev.properties
 │   │       └── application-prod.properties
@@ -490,6 +493,18 @@ docker exec -it ecommerce-postgres psql -U ecommerce_user -d ecommerce -c "SELEC
 \d+ products                  # Table structure with indexes
 SELECT * FROM products;       # Check data
 \q                            # Exit
+```
+
+### Validate FlyWay
+
+Connect to docker
+```
+docker exec -it ecommerce-postgres psql -U ecommerce_user -d ecommerce
+```
+List tables and select from flyway table
+```
+\dt
+SELECT * FROM flyway_schema_history ORDER BY installed_rank;
 ```
 
 ## License
